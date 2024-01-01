@@ -64,7 +64,7 @@ export const authOptions: NextAuthOptions = {
             return '/dashboard'
         },
     },
-    secret: "this is a secret"
+    secret: process.env.NEXTAUTH_SECRET
     // secret: process.env.NEXTAUTH_SECRET
 
 }
