@@ -37,7 +37,7 @@ export const authOptions: NextAuthOptions = {
             name: 'next-auth.pkce.code_verifier',
             options: {
                 httpOnly: true,
-                sameSite: 'none',
+                sameSite: 'lax',
                 path: '/',
                 secure: process.env.NODE_ENV === 'production',
             },
