@@ -61,7 +61,8 @@ export const authOptions: NextAuthOptions = {
                 path: "/",
                 secure: process.env.NODE_ENV === 'production',
                 maxAge: 900,
-            },
+            }
+        }      
     },
 
     callbacks: {
