@@ -33,14 +33,26 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     cookies: {
-        sessionToken: {
-            name: '__Secure-next-auth.session-token',
+        pkceCodeVerifier: {
+            name: 'next-auth.pkce.code_verifier',
             options: {
-                // Set the Secure flag to ensure the cookie is only sent over HTTPS
+                httpOnly: true,
+                sameSite: 'none',
+                path: '/',
                 secure: process.env.NODE_ENV === 'production',
             },
         },
+        sessionToken: {
+            name: "next-auth.session-token",
+            options: {
+                path: "/",
+                httpOnly: true,
+                sameSite: "lax",
+                secure: process.env.NODE_ENV === 'production'
+            }
+        }
     },
+
     callbacks: {
         async jwt({ token, user }) {
             const dbUserResult = await fetchRedis('get', `user:${token.id}`) as | string | null;
