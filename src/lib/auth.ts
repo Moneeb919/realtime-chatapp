@@ -66,7 +66,7 @@ export const authOptions: NextAuthOptions = {
                 email: dbUser.email,
                 picture: dbUser.image
             }
-            }else{
+            }else{ 
                 if (user) {
                     token.id = user!.id
                 }
