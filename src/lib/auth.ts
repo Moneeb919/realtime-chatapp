@@ -57,22 +57,22 @@ export const authOptions: NextAuthOptions = {
 
     callbacks: {
         async jwt({ token, user }) {
-            const dbUserResult = await fetchRedis('get', `user:${token?.id}`) as | string | null;
-            if (!dbUserResult) {
-                if (user) {
-                    token.id = user!.id
-                }
-
-                return token
-            }
-
-            const dbUser = JSON.parse(dbUserResult) as User
+            if (token.id){
+                const dbUserResult = await fetchRedis('get', `user:${token?.id}`) as | string | null;
+                const dbUser = JSON.parse(dbUserResult) as User
             return {
                 id: dbUser.id,
                 name: dbUser.name,
                 email: dbUser.email,
                 picture: dbUser.image
             }
+            }else{
+                if (user) {
+                    token.id = user!.id
+                }
+
+                return token
+            }   
         },
 
         async session({ session, token }) {
