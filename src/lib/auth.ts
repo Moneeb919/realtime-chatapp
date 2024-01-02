@@ -32,6 +32,15 @@ export const authOptions: NextAuthOptions = {
             clientSecret: getGoogleCredentials().clientSecret
         }),
     ],
+    cookies: {
+        sessionToken: {
+            name: 'next-auth.session-token',
+            options: {
+                // Set the Secure flag to ensure the cookie is only sent over HTTPS
+                secure: process.env.NODE_ENV === 'production',
+            },
+        },
+    },
     callbacks: {
         async jwt({ token, user }) {
             const dbUserResult = await fetchRedis('get', `user:${token.id}`) as | string | null;
