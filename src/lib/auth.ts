@@ -52,7 +52,7 @@ export const authOptions: NextAuthOptions = {
                 sameSite: "lax",
                 secure: process.env.NODE_ENV === 'production'
             }
-        }
+        },
         state: {
             name: "next-auth.state",
             options: {
